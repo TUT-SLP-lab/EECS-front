@@ -20,13 +20,10 @@ export default function Room({ roomNumber, deskData }: Props) {
             height={999}
           />
           {deskData.map((deskData, index) =>
-            deskData.roomID == roomNumber ? (
+            deskData.room == roomNumber ? (
               <Table
-                x={deskData.locateX}
-                y={deskData.locateY}
-                height={deskData.deskHeight}
-                width={deskData.deskWidth}
-                name={deskData.username}
+                deskData={deskData}
+                index={index}
                 key={index}
               />
             ) : (

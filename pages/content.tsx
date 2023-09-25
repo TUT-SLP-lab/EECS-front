@@ -4,12 +4,13 @@ import { useState } from "react";
 
 export default function Content() {
   const [roomNumber, setRoomNumber] = useState("F-301");
-  const { deskData, setDeskData } = useGetDeskData();
+  const { deskData, setDeskData, changeDeskData } = useGetDeskData();
 
   console.log(deskData)
 
   const handleClick = (e:any) => {
     setRoomNumber(e.target.value)
+    changeDeskData(0,"aaa");
   }
   return (
     <div>
