@@ -6,12 +6,10 @@ export default function Content() {
   const [roomNumber, setRoomNumber] = useState("F-301");
   const { deskData, setDeskData, changeDeskData } = useGetDeskData();
 
-  console.log(deskData)
+  const handleClick = (e: any) => {
+    setRoomNumber(e.target.value);
+  };
 
-  const handleClick = (e:any) => {
-    setRoomNumber(e.target.value)
-    changeDeskData(0,"aaa");
-  }
   return (
     <div>
       <div>机を配置する</div>
@@ -32,7 +30,11 @@ export default function Content() {
         F-310
       </button>
       <div>{roomNumber}</div>
-      <Room roomNumber={roomNumber} deskData={deskData}/>
+      <Room
+        roomNumber={roomNumber}
+        deskData={deskData}
+        changeDeskData={changeDeskData}
+      />
     </div>
   );
 }

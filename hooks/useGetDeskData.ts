@@ -16,12 +16,26 @@ export const useGetDeskData = () => {
   //   })
   // }, []);
 
-  const changeDeskData = (index:number, name:string) => {
-    const tmpDeskData = deskData;
-    tmpDeskData[index].username = name;
-    console.log(tmpDeskData)
-    setDeskData(tmpDeskData)
-  }
+  const changeDeskData = (id: string, name: string) => {
+    setDeskData((prevState) =>
+      prevState.map((obj) =>
+        obj.desk_id === id
+          ? {
+              room: obj.room,
+              desk_id: obj.desk_id,
+              email: obj.email,
+              username: name,
+              position: { x: obj.position.x, y: obj.position.y },
+              size: { x: obj.size.x, y: obj.size.y },
+              timestamp: {
+                createdAt: obj.timestamp.createdAt,
+                updatedAt: obj.timestamp.updatedAt,
+              },
+            }
+          : obj
+      )
+    );
+  };
 
   useEffect(() => {
     const tmpDeakData: DeskDataType[] = [
@@ -29,46 +43,46 @@ export const useGetDeskData = () => {
         room: "F-301",
         desk_id: "111",
         email: undefined,
-        username: undefined,
-        position:{x:10,y:10},
-        size:{x:100,y:100},
-        timestamp:{createdAt:"aaa",updatedAt:"bbb"}
+        username: "aaa",
+        position: { x: 10, y: 10 },
+        size: { x: 100, y: 100 },
+        timestamp: { createdAt: "aaa", updatedAt: "bbb" },
       },
       {
         room: "F-301",
         desk_id: "111",
         email: undefined,
         username: undefined,
-        position:{x:100,y:500},
-        size:{x:50,y:100},
-        timestamp:{createdAt:"aaa",updatedAt:"bbb"}
+        position: { x: 100, y: 500 },
+        size: { x: 50, y: 100 },
+        timestamp: { createdAt: "aaa", updatedAt: "bbb" },
       },
       {
         room: "F-310",
         desk_id: "111",
         email: undefined,
         username: undefined,
-        position:{x:10,y:200},
-        size:{x:100,y:50},
-        timestamp:{createdAt:"aaa",updatedAt:"bbb"}
+        position: { x: 10, y: 200 },
+        size: { x: 100, y: 50 },
+        timestamp: { createdAt: "aaa", updatedAt: "bbb" },
       },
       {
         room: "F-301",
         desk_id: "111",
         email: undefined,
         username: undefined,
-        position:{x:10,y:300},
-        size:{x:100,y:100},
-        timestamp:{createdAt:"aaa",updatedAt:"bbb"}
+        position: { x: 10, y: 300 },
+        size: { x: 100, y: 100 },
+        timestamp: { createdAt: "aaa", updatedAt: "bbb" },
       },
       {
         room: "F-310",
         desk_id: "111",
         email: undefined,
         username: undefined,
-        position:{x:400,y:10},
-        size:{x:100,y:100},
-        timestamp:{createdAt:"aaa",updatedAt:"bbb"}
+        position: { x: 400, y: 10 },
+        size: { x: 100, y: 100 },
+        timestamp: { createdAt: "aaa", updatedAt: "bbb" },
       },
     ];
     setDeskData([...tmpDeakData]);
