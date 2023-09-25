@@ -1,15 +1,37 @@
-import Table from "@/components/table";
+import Room from "@/components/room";
+import { useGetDeskData } from "@/hooks/useGetDeskData";
+import { useState } from "react";
 
 export default function Content() {
-    return (
-        <>
-        <>机を配置する</>
-        <svg height={1000} width={1000}>
-            <rect x={1} y={1} height={999} width={999} fill="white" stroke="black" strokeWidth={1}></rect>
-            <Table x={10} y={5} height={200} width={100} name={"てすと"} />
-        </svg>
-        </>
-      
-    )
+  const [roomNumber, setRoomNumber] = useState("F-301");
+  const { deskData, setDeskData } = useGetDeskData();
+
+  console.log(deskData)
+
+  const handleClick = (e:any) => {
+    setRoomNumber(e.target.value)
   }
-  
+  return (
+    <div>
+      <div>机を配置する</div>
+      <button
+        type="submit"
+        onClick={handleClick}
+        className="bg-gray-300 flex-1 rounded m-1 p-1"
+        value={"F-301"}
+      >
+        F-301
+      </button>
+      <button
+        type="submit"
+        onClick={handleClick}
+        className="bg-gray-300 flex-1 rounded m-1 p-1"
+        value={"F-310"}
+      >
+        F-310
+      </button>
+      <div>{roomNumber}</div>
+      <Room roomNumber={roomNumber} deskData={deskData}/>
+    </div>
+  );
+}
