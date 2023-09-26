@@ -16,15 +16,36 @@ export const useGetDeskData = () => {
   //   })
   // }, []);
 
-  const changeDeskData = (id: string, name: string) => {
+  const changeSitDesk = (id: string, email: string, name: string) => {
     setDeskData((prevState) =>
       prevState.map((obj) =>
         obj.desk_id === id
           ? {
               room: obj.room,
               desk_id: obj.desk_id,
-              email: obj.email,
+              email: email,
               username: name,
+              position: { x: obj.position.x, y: obj.position.y },
+              size: { x: obj.size.x, y: obj.size.y },
+              timestamp: {
+                createdAt: obj.timestamp.createdAt,
+                updatedAt: obj.timestamp.updatedAt,
+              },
+            }
+          : obj
+      )
+    );
+  };
+
+  const changeStandDesk = (id: string) => {
+    setDeskData((prevState) =>
+      prevState.map((obj) =>
+        obj.desk_id === id
+          ? {
+              room: obj.room,
+              desk_id: obj.desk_id,
+              email: undefined,
+              username: undefined,
               position: { x: obj.position.x, y: obj.position.y },
               size: { x: obj.size.x, y: obj.size.y },
               timestamp: {
@@ -41,7 +62,7 @@ export const useGetDeskData = () => {
     const tmpDeakData: DeskDataType[] = [
       {
         room: "F-301",
-        desk_id: "111",
+        desk_id: "100",
         email: undefined,
         username: "aaa",
         position: { x: 10, y: 10 },
@@ -50,7 +71,7 @@ export const useGetDeskData = () => {
       },
       {
         room: "F-301",
-        desk_id: "111",
+        desk_id: "101",
         email: undefined,
         username: undefined,
         position: { x: 100, y: 500 },
@@ -59,7 +80,7 @@ export const useGetDeskData = () => {
       },
       {
         room: "F-310",
-        desk_id: "111",
+        desk_id: "102",
         email: undefined,
         username: undefined,
         position: { x: 10, y: 200 },
@@ -68,7 +89,7 @@ export const useGetDeskData = () => {
       },
       {
         room: "F-301",
-        desk_id: "111",
+        desk_id: "103",
         email: undefined,
         username: undefined,
         position: { x: 10, y: 300 },
@@ -77,7 +98,7 @@ export const useGetDeskData = () => {
       },
       {
         room: "F-310",
-        desk_id: "111",
+        desk_id: "104",
         email: undefined,
         username: undefined,
         position: { x: 400, y: 10 },
@@ -88,5 +109,5 @@ export const useGetDeskData = () => {
     setDeskData([...tmpDeakData]);
   }, []);
 
-  return { deskData, setDeskData, changeDeskData };
+  return { deskData, setDeskData, changeSitDesk, changeStandDesk };
 };

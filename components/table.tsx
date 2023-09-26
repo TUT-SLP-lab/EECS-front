@@ -1,14 +1,24 @@
-import { useGetDeskData } from "@/hooks/useGetDeskData";
 import { Rect, Text } from "react-konva";
 
 interface Props {
   deskData: DeskDataType;
-  changeDeskData: (id: string, name: string) => void;
+  changeSitDesk: (id: string, email: string, name: string) => void;
+  changeStandDesk: (id: string) => void;
 }
 
-export default function Table({ deskData, changeDeskData }: Props) {
-  const handleClick = (e: any, id: string) => {
-    changeDeskData(id, "aaa");
+export default function Table({
+  deskData,
+  changeSitDesk,
+  changeStandDesk,
+}: Props) {
+  const handleClick = (e: any) => {
+    const name: string = "aaa";
+    const email: string = "aaa@eecs";
+    if (deskData.username == undefined) {
+      changeSitDesk(deskData.desk_id, email, name);
+    } else if (deskData.username == name) {
+      changeStandDesk(deskData.desk_id);
+    }
   };
   return (
     <>
@@ -18,7 +28,9 @@ export default function Table({ deskData, changeDeskData }: Props) {
         height={deskData.size.y}
         width={deskData.size.x}
         fill="yellow"
-        onClick={(e) => handleClick(e, deskData.desk_id)}
+        onClick={handleClick}
+        stroke="black"
+        strokeWidth={1}
       />
       {deskData.username != undefined ? (
         <Text

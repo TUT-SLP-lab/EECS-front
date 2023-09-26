@@ -4,10 +4,16 @@ import Table from "./table";
 interface Props {
   roomNumber: string;
   deskData: DeskDataType[];
-  changeDeskData: (id: string, name: string) => void;
+  changeSitDesk: (id: string, email: string, name: string) => void;
+  changeStandDesk: (id: string) => void;
 }
 
-export default function Room({ roomNumber, deskData, changeDeskData }: Props) {
+export default function Room({
+  roomNumber,
+  deskData,
+  changeSitDesk,
+  changeStandDesk,
+}: Props) {
   return (
     <>
       <Stage height={1000} width={1000}>
@@ -24,7 +30,8 @@ export default function Room({ roomNumber, deskData, changeDeskData }: Props) {
             deskData.room == roomNumber ? (
               <Table
                 deskData={deskData}
-                changeDeskData={changeDeskData}
+                changeSitDesk={changeSitDesk}
+                changeStandDesk={changeStandDesk}
                 key={index}
               />
             ) : (

@@ -4,7 +4,8 @@ import { useState } from "react";
 
 export default function Content() {
   const [roomNumber, setRoomNumber] = useState("F-301");
-  const { deskData, setDeskData, changeDeskData } = useGetDeskData();
+  const { deskData, setDeskData, changeSitDesk, changeStandDesk } =
+    useGetDeskData();
 
   const handleClick = (e: any) => {
     setRoomNumber(e.target.value);
@@ -33,7 +34,8 @@ export default function Content() {
       <Room
         roomNumber={roomNumber}
         deskData={deskData}
-        changeDeskData={changeDeskData}
+        changeSitDesk={changeSitDesk}
+        changeStandDesk={changeStandDesk}
       />
     </div>
   );
