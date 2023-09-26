@@ -22,7 +22,7 @@ Amplify.configure({
 
 async function signIn() {
   try {
-    const user = await Auth.federatedSignIn({ provider: "Slack" });
+    const user = await Auth.federatedSignIn({ customProvider: process.env.NEXT_PUBLIC_CUSTOMPROVIDER ?? "" });
     console.log(user);
   } catch (error) {
     console.error(error);
