@@ -1,3 +1,4 @@
+import ModalButton from "@/components/modalbutton";
 import Room from "@/components/room";
 import { useDeskState } from "@/hooks/useDeskState";
 import { useState } from "react";
@@ -19,6 +20,7 @@ export default function Content() {
   return (
     <div>
       <div>机を配置する</div>
+      <ModalButton>モーダルを開く</ModalButton>
       <button
         type="submit"
         onClick={handleClick}
