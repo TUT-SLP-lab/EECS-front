@@ -39,7 +39,7 @@ async function getAuthToken() {
   }
 }
 
-async function fetchProtectedData(session) {
+async function fetchProtectedData(session:any) {
   try {
     const authToken = session.getAccessToken();
     console.log(authToken);
@@ -59,7 +59,7 @@ async function fetchProtectedData(session) {
 }
 
 export default function Home() {
-  const [sessionData, setSessionData] = useState<CognitoUserSession>(undefined);
+  const [sessionData, setSessionData] = useState<any>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [roomNumber, setRoomNumber] = useState("F-301");
   const {
