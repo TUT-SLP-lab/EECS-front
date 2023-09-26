@@ -42,7 +42,6 @@ async function getAuthToken() {
 async function fetchProtectedData(session:any) {
   try {
     const authToken = session.getAccessToken();
-    console.log(authToken);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_APIURL}/prod/desk`,
       {
@@ -86,7 +85,6 @@ export default function Home() {
     if (sessionData != undefined) {
       if (sessionData.isValid()) {
         (async () => {
-          console.log(sessionData);
           await fetchProtectedData(sessionData);
         })();
       }
