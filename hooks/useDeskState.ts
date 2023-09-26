@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export const useGetDeskData = () => {
+export const useDeskState = () => {
   const [deskData, setDeskData] = useState<DeskDataType[]>([]);
   const [isAPIWaiting, setIsSPIWaiting] = useState<boolean>(false);
 
@@ -58,6 +58,27 @@ export const useGetDeskData = () => {
     );
   };
 
+  const changeOldDesk = (name: string) => {
+    setDeskData((prevState) =>
+      prevState.map((obj) =>
+        obj.username === name
+          ? {
+              room: obj.room,
+              desk_id: obj.desk_id,
+              email: undefined,
+              username: undefined,
+              position: { x: obj.position.x, y: obj.position.y },
+              size: { x: obj.size.x, y: obj.size.y },
+              timestamp: {
+                createdAt: obj.timestamp.createdAt,
+                updatedAt: obj.timestamp.updatedAt,
+              },
+            }
+          : obj
+      )
+    );
+  }
+
   useEffect(() => {
     const tmpDeakData: DeskDataType[] = [
       {
@@ -109,5 +130,5 @@ export const useGetDeskData = () => {
     setDeskData([...tmpDeakData]);
   }, []);
 
-  return { deskData, setDeskData, changeSitDesk, changeStandDesk };
+  return { deskData, setDeskData, changeSitDesk, changeStandDesk, changeOldDesk };
 };

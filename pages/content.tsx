@@ -1,11 +1,16 @@
 import Room from "@/components/room";
-import { useGetDeskData } from "@/hooks/useGetDeskData";
+import { useDeskState } from "@/hooks/useDeskState";
 import { useState } from "react";
 
 export default function Content() {
   const [roomNumber, setRoomNumber] = useState("F-301");
-  const { deskData, setDeskData, changeSitDesk, changeStandDesk } =
-    useGetDeskData();
+  const {
+    deskData,
+    setDeskData,
+    changeSitDesk,
+    changeStandDesk,
+    changeOldDesk,
+  } = useDeskState();
 
   const handleClick = (e: any) => {
     setRoomNumber(e.target.value);
@@ -36,6 +41,7 @@ export default function Content() {
         deskData={deskData}
         changeSitDesk={changeSitDesk}
         changeStandDesk={changeStandDesk}
+        changeOldDesk={changeOldDesk}
       />
     </div>
   );

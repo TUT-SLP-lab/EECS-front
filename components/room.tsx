@@ -1,11 +1,13 @@
 import { Layer, Rect, Stage } from "react-konva";
 import Table from "./table";
+import React from "react";
 
 interface Props {
   roomNumber: string;
   deskData: DeskDataType[];
   changeSitDesk: (id: string, email: string, name: string) => void;
   changeStandDesk: (id: string) => void;
+  changeOldDesk: (name: string) => void
 }
 
 export default function Room({
@@ -13,6 +15,7 @@ export default function Room({
   deskData,
   changeSitDesk,
   changeStandDesk,
+  changeOldDesk
 }: Props) {
   return (
     <>
@@ -32,11 +35,12 @@ export default function Room({
                 deskData={deskData}
                 changeSitDesk={changeSitDesk}
                 changeStandDesk={changeStandDesk}
+                changeOldDesk={changeOldDesk}
                 key={index}
               />
             ) : (
-              <div key={index}></div>
-            )
+              <React.Fragment key={index}></React.Fragment>
+          )
           )}
         </Layer>
       </Stage>
