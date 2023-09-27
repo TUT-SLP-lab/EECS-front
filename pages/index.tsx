@@ -75,8 +75,11 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      const session = await Auth.currentSession();
-      setSessionData(session);
+      const userInfo = await Auth.currentUserInfo();
+      if(userInfo){
+        const session = await Auth.currentSession();
+        setSessionData(session);
+      }
       setIsLoading(false);
     })();
   }, []);
