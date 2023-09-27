@@ -13,9 +13,9 @@ export const useDeskState = () => {
     (async () => {
       try {
         if (sessionData != undefined) {
-          const authToken = sessionData.getAccessToken();
+          const authToken = sessionData.getIdToken();
           const headers = {
-            Authorization: `Bearer ${authToken.jwtToken}`,
+            Authorization: authToken.getJwtToken()
           };
           await axios
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
