@@ -2,11 +2,12 @@ import { Rect, Text } from "react-konva";
 
 interface Props {
   deskData: DeskDataType;
-  changeSitDesk: (id: string, email: string, name: string) => void;
+  changeSitDesk: (id: string) => void;
   changeStandDesk: (id: string) => void;
   changeOldDesk: (name: string) => void;
   openModal: () => void;
   targetDesk: (desk_id: string) => void;
+  authName: string;
 }
 
 export default function Table({
@@ -15,21 +16,17 @@ export default function Table({
   changeStandDesk,
   changeOldDesk,
   openModal,
-  targetDesk
+  targetDesk,
+  authName
 }: Props) {
   const handleClick = (e: any) => {
-    const name: string = "bbb";
-    const email: string = "aaa@eecs";
     if (deskData.username == undefined) {
-      changeOldDesk(name)
-      changeSitDesk(deskData.desk_id, email, name);
-    } else if (deskData.username == name) {
+      changeSitDesk(deskData.desk_id);
+    } else if (deskData.username == authName) {
       changeStandDesk(deskData.desk_id);
     }else{
       targetDesk(deskData.desk_id)
       openModal()
-      // changeOldDesk(name)
-      // changeSitDesk(deskData.desk_id, email, name);
     }
   };
   return (

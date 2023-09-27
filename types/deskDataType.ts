@@ -5,5 +5,6 @@ interface DeskDataType {
   username: undefined | string;
   position: { x: number; y: number };
   size: { x: number; y: number };
-  timestamp: { createdAt: string; updatedAt: string };
+  createdAt: string;
+  updatedAt: string;
 }

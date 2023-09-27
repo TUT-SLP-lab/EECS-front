@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import Amplify from "@aws-amplify/core";
-// import ModalButton from "@/components/modalbutton";
 import Room from "@/components/room";
 import { useDeskState } from "@/hooks/useDeskState";
 import { useSessionState } from "@/hooks/useSessionState";
@@ -33,17 +32,6 @@ async function signIn() {
     console.error(error);
   }
 }
-
-async function getAuthToken() {
-  try {
-    const session = await Auth.currentSession();
-    const authToken = session.getIdToken().getJwtToken();
-    return authToken;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 
 export default function Home() {
   const { sessionData, isLoading } = useSessionState();
@@ -77,7 +65,6 @@ export default function Home() {
             onClose={closeModal}
             changeDeskID={changeDeskID}
             changeSitDesk={changeSitDesk}
-            changeOldDesk={changeOldDesk}
           />
           {/* <ModalButton>モーダルを開く</ModalButton> */}
           <button
@@ -105,6 +92,7 @@ export default function Home() {
             changeOldDesk={changeOldDesk}
             openModal={openModal}
             targetDesk={targetDesk}
+            authName={sessionData.idToken.payload.name}
           />
         </div>
       ) : (

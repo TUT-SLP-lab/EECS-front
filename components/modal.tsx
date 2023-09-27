@@ -8,12 +8,16 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   changeDeskID: string;
-  changeSitDesk: (id: string, email: string, name: string) => void;
-  changeOldDesk: (name: string) => void;
+  changeSitDesk: (id: string) => void;
 }
 
-const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk, changeOldDesk }: Props) => {
+const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
   const windowSize = useGetWindowSize();
+
+  const changeDesk = () => {
+    changeSitDesk(changeDeskID)
+    onClose()
+  }
 
   if (!isOpen) return null;
 
@@ -57,6 +61,7 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk, changeOldDesk }: 
             width={80}
             height={40}
             fill="silver"
+            onClick={changeDesk}
             >
           </Rect>
           <Text
@@ -73,6 +78,7 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk, changeOldDesk }: 
             width={80}
             height={40}
             fill="silver"
+            onClick={onClose}
             >
           </Rect>
         </Layer>

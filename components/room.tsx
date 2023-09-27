@@ -5,11 +5,12 @@ import React from "react";
 interface Props {
   roomNumber: string;
   deskData: DeskDataType[];
-  changeSitDesk: (id: string, email: string, name: string) => void;
+  changeSitDesk: (id: string) => void;
   changeStandDesk: (id: string) => void;
   changeOldDesk: (name: string) => void;
   openModal: () => void;
   targetDesk: (desk_id: string) => void;
+  authName: string;
 }
 
 export default function Room({
@@ -19,7 +20,8 @@ export default function Room({
   changeStandDesk,
   changeOldDesk,
   openModal,
-  targetDesk
+  targetDesk,
+  authName
 }: Props) {
   return (
     <>
@@ -42,6 +44,7 @@ export default function Room({
                 changeOldDesk={changeOldDesk}
                 openModal={openModal}
                 targetDesk={targetDesk}
+                authName={authName}
                 key={index}
               />
             ) : (
