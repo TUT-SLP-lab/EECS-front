@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSessionState } from "./useSessionState";
 
+axios.defaults.withCredentials = true;
+
 export const useDeskState = () => {
   const [deskData, setDeskData] = useState<DeskDataType[]>([]);
   const { sessionData } = useSessionState();
@@ -11,9 +13,10 @@ export const useDeskState = () => {
     (async () => {
       try {
         if (sessionData != undefined) {
+          console.log(sessionData)
           const authToken = sessionData.getAccessToken();
           const headers = {
-            Authorization: authToken.jwtToken,
+            Authorization: `Bearer ${authToken.jwtToken}`,
           };
           await axios
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
