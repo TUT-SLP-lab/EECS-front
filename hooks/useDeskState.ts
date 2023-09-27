@@ -15,8 +15,8 @@ export const useDeskState = () => {
           const headers = {
             Authorization: authToken.jwtToken,
           };
-          axios
-            .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers })
+          await axios
+            .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
             .then((response) => {
               // Handle the response here
               console.log(response.data); // Example: Logging the response data
