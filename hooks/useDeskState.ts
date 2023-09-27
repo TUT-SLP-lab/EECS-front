@@ -12,17 +12,30 @@ export const useDeskState = () => {
       try {
         if (sessionData != undefined) {
           const authToken = sessionData.getAccessToken();
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_APIURL}/desk`,
-            {
-              headers: {
-                Authorization: authToken.jwtToken,
-              },
-              mode: "cors",
-            }
-          );
-          const data = await response.json();
-          console.log(data);
+          const headers = {
+            Authorization: authToken.jwtToken,
+          };
+          axios
+            .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers })
+            .then((response) => {
+              // Handle the response here
+              console.log(response.data); // Example: Logging the response data
+            })
+            .catch((error) => {
+              // Handle any errors here
+              console.error("An error occurred:", error);
+            });
+          // const response = await fetch(
+          //   `${process.env.NEXT_PUBLIC_APIURL}/desk`,
+          //   {
+          //     headers: {
+          //       Authorization: authToken.jwtToken,
+          //     },
+          //     mode: "cors",
+          //   }
+          // );
+          // const data = await response.json();
+          // console.log(data);
         }
       } catch (error) {
         console.error(error);
