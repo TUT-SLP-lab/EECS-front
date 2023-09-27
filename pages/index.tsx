@@ -44,23 +44,6 @@ async function getAuthToken() {
   }
 }
 
-async function fetchProtectedData(session: any) {
-  try {
-    const authToken = session.getAccessToken();
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APIURL}/prod/desk`,
-      {
-        headers: {
-          Authorization: authToken,
-        },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 export default function Home() {
   const { sessionData, isLoading } = useSessionState();

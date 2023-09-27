@@ -13,7 +13,7 @@ export const useDeskState = () => {
         if (sessionData != undefined) {
           const authToken = sessionData.getAccessToken();
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_APIURL}/prod/desk`,
+            `${process.env.NEXT_PUBLIC_APIURL}/desk`,
             {
               headers: {
                 Authorization: authToken.jwtToken,
