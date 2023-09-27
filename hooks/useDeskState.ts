@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSessionState } from "./useSessionState";
 
 export const useDeskState = () => {
   const [deskData, setDeskData] = useState<DeskDataType[]>([]);
+  const { sessionData } = useSessionState();
   const [isAPIWaiting, setIsSPIWaiting] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   (async() => {
-  //       const url = "http://api";
-  //       const response = await axios
-  //       .get(url)
-  //       .then((res) => res)
-  //       .catch((error) => error);
-  //       console.log(response);
-  //   })
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        if (sessionData != undefined) {
+          const authToken = sessionData.getAccessToken();
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_APIURL}/prod/desk`,
+            {
+              headers: {
+                Authorization: authToken.jwtToken,
+              },
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [sessionData]);
 
   const changeSitDesk = (id: string, email: string, name: string) => {
     setDeskData((prevState) =>
@@ -77,7 +90,7 @@ export const useDeskState = () => {
           : obj
       )
     );
-  }
+  };
 
   useEffect(() => {
     const tmpDeakData: DeskDataType[] = [
@@ -130,5 +143,11 @@ export const useDeskState = () => {
     setDeskData([...tmpDeakData]);
   }, []);
 
-  return { deskData, setDeskData, changeSitDesk, changeStandDesk, changeOldDesk };
+  return {
+    deskData,
+    setDeskData,
+    changeSitDesk,
+    changeStandDesk,
+    changeOldDesk,
+  };
 };

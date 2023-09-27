@@ -5,16 +5,20 @@ interface Props {
   changeSitDesk: (id: string, email: string, name: string) => void;
   changeStandDesk: (id: string) => void;
   changeOldDesk: (name: string) => void;
+  openModal: () => void;
+  targetDesk: (desk_id: string) => void;
 }
 
 export default function Table({
   deskData,
   changeSitDesk,
   changeStandDesk,
-  changeOldDesk
+  changeOldDesk,
+  openModal,
+  targetDesk
 }: Props) {
   const handleClick = (e: any) => {
-    const name: string = "aaa";
+    const name: string = "bbb";
     const email: string = "aaa@eecs";
     if (deskData.username == undefined) {
       changeOldDesk(name)
@@ -22,8 +26,10 @@ export default function Table({
     } else if (deskData.username == name) {
       changeStandDesk(deskData.desk_id);
     }else{
-      changeOldDesk(name)
-      changeSitDesk(deskData.desk_id, email, name);
+      targetDesk(deskData.desk_id)
+      openModal()
+      // changeOldDesk(name)
+      // changeSitDesk(deskData.desk_id, email, name);
     }
   };
   return (

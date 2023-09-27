@@ -26,9 +26,8 @@ const ModalButton = ({ children }: Props) => {
       >
         {children}
       </button>
-      <Modal isOpen={isOpen} onClose={closeModal}>
-        {/* モーダルに表示するコンテンツをここに追加 */}
-      </Modal>
+      {/* <Modal isOpen={isOpen} onClose={closeModal}>
+      </Modal> */}
     </div>
   );
 };

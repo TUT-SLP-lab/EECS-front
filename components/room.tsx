@@ -7,7 +7,9 @@ interface Props {
   deskData: DeskDataType[];
   changeSitDesk: (id: string, email: string, name: string) => void;
   changeStandDesk: (id: string) => void;
-  changeOldDesk: (name: string) => void
+  changeOldDesk: (name: string) => void;
+  openModal: () => void;
+  targetDesk: (desk_id: string) => void;
 }
 
 export default function Room({
@@ -15,7 +17,9 @@ export default function Room({
   deskData,
   changeSitDesk,
   changeStandDesk,
-  changeOldDesk
+  changeOldDesk,
+  openModal,
+  targetDesk
 }: Props) {
   return (
     <>
@@ -36,6 +40,8 @@ export default function Room({
                 changeSitDesk={changeSitDesk}
                 changeStandDesk={changeStandDesk}
                 changeOldDesk={changeOldDesk}
+                openModal={openModal}
+                targetDesk={targetDesk}
                 key={index}
               />
             ) : (

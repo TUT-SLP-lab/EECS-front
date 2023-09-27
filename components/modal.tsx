@@ -7,10 +7,12 @@ import { Stage, Layer, Rect, Text } from "react-konva";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
+  changeDeskID: string;
+  changeSitDesk: (id: string, email: string, name: string) => void;
+  changeOldDesk: (name: string) => void;
 }
 
-const Modal = ({ isOpen, onClose, children }: Props) => {
+const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk, changeOldDesk }: Props) => {
   const windowSize = useGetWindowSize();
 
   if (!isOpen) return null;
@@ -34,8 +36,8 @@ const Modal = ({ isOpen, onClose, children }: Props) => {
           <Rect
             x={windowSize.width / 4}
             y={windowSize.height / 4}
-            width={windowSize.width / 2}
-            height={windowSize.height / 2}
+            width={400}
+            height={100}
             fill="white"
             shadowBlur={10}
             cornerRadius={10}
@@ -50,15 +52,29 @@ const Modal = ({ isOpen, onClose, children }: Props) => {
             fill="black"
           />
           <Rect
-            x={windowSize.width / 4 + 20}
-            y={windowSize.height / 4 + 30}
-            width={windowSize.width / 2}
-            height={windowSize.height / 2}
-            fill="white"
+            x={windowSize.width / 4 + 90}
+            y={windowSize.height / 4 + 50}
+            width={80}
+            height={40}
+            fill="silver"
             >
-
           </Rect>
-          {children}
+          <Text
+            x={windowSize.width / 4 + 120}
+            y={windowSize.height / 4 + 70}
+            text="はい"
+            fontSize={20}
+            fill="black"
+            >
+          </Text>
+          <Rect
+            x={windowSize.width / 4 + 220}
+            y={windowSize.height / 4 + 50}
+            width={80}
+            height={40}
+            fill="silver"
+            >
+          </Rect>
         </Layer>
       </Stage>
     </div>,

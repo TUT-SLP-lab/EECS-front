@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import Amplify from "@aws-amplify/core";
-import ModalButton from "@/components/modalbutton";
+// import ModalButton from "@/components/modalbutton";
 import Room from "@/components/room";
 import { useDeskState } from "@/hooks/useDeskState";
+import { useSessionState } from "@/hooks/useSessionState";
+import Modal from "@/components/modal";
+import { useModalState } from "@/hooks/useModalState";
 
 // Configure Amplify in index file or root file
 Amplify.configure({
@@ -60,8 +63,7 @@ async function fetchProtectedData(session: any) {
 }
 
 export default function Home() {
-  const [sessionData, setSessionData] = useState<any>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+  const { sessionData, isLoading } = useSessionState();
   const [roomNumber, setRoomNumber] = useState("F-301");
   const {
     deskData,
@@ -70,40 +72,31 @@ export default function Home() {
     changeStandDesk,
     changeOldDesk,
   } = useDeskState();
+  const { isModalOpen, openModal, closeModal } = useModalState();
+  const [changeDeskID, setChangeDeskID] = useState("");
 
   const handleClick = (e: any) => {
     setRoomNumber(e.target.value);
   };
 
-  useEffect(() => {
-    (async () => {
-      const userInfo = await Auth.currentUserInfo();
-      if (userInfo) {
-        const session = await Auth.currentSession();
-        setSessionData(session);
-      } else {
-        setSessionData(undefined);
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+  const targetDesk = (desk_id: string) => {
+    setChangeDeskID(desk_id);
+  };
 
-  useEffect(() => {
-    if (sessionData != undefined) {
-      if (sessionData.isValid()) {
-        (async () => {
-          await fetchProtectedData(sessionData);
-        })();
-      }
-    }
-  }, [sessionData]);
 
   if (!isLoading) {
     return sessionData != undefined ? (
       sessionData.isValid() ? (
         <div>
           <div>机を配置する</div>
-          <ModalButton>モーダルを開く</ModalButton>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            changeDeskID={changeDeskID}
+            changeSitDesk={changeSitDesk}
+            changeOldDesk={changeOldDesk}
+          />
+          {/* <ModalButton>モーダルを開く</ModalButton> */}
           <button
             type="submit"
             onClick={handleClick}
@@ -127,13 +120,20 @@ export default function Home() {
             changeSitDesk={changeSitDesk}
             changeStandDesk={changeStandDesk}
             changeOldDesk={changeOldDesk}
+            openModal={openModal}
+            targetDesk={targetDesk}
           />
         </div>
       ) : (
-        signIn()
-      )
+        <>
+        <button type="submit" onClick={signIn}> 認証 </button>
+        </>
+        )
     ) : (
-      signIn()
+      <>
+      <button type="submit" onClick={signIn}> 認証 </button>
+      </>
+      // signIn()
     );
   }
 }
