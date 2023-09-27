@@ -18,6 +18,7 @@ export const useDeskState = () => {
               headers: {
                 Authorization: authToken.jwtToken,
               },
+              mode: "cors",
             }
           );
           const data = await response.json();
