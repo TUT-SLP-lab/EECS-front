@@ -22,7 +22,9 @@ Amplify.configure({
 
 async function signIn() {
   try {
-    const user = await Auth.federatedSignIn({ customProvider: process.env.NEXT_PUBLIC_CUSTOMPROVIDER ?? "" });
+    const user = await Auth.federatedSignIn({
+      customProvider: process.env.NEXT_PUBLIC_CUSTOMPROVIDER ?? "",
+    });
     console.log(user);
   } catch (error) {
     console.error(error);
@@ -39,7 +41,7 @@ async function getAuthToken() {
   }
 }
 
-async function fetchProtectedData(session:any) {
+async function fetchProtectedData(session: any) {
   try {
     const authToken = session.getAccessToken();
     const response = await fetch(
@@ -76,9 +78,11 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       const userInfo = await Auth.currentUserInfo();
-      if(userInfo){
+      if (userInfo) {
         const session = await Auth.currentSession();
         setSessionData(session);
+      } else {
+        setSessionData(undefined);
       }
       setIsLoading(false);
     })();
@@ -95,35 +99,39 @@ export default function Home() {
   }, [sessionData]);
 
   if (!isLoading) {
-    return sessionData.isValid() ? (
-      <div>
-        <div>机を配置する</div>
-        <ModalButton>モーダルを開く</ModalButton>
-        <button
-          type="submit"
-          onClick={handleClick}
-          className="bg-gray-300 flex-1 rounded m-1 p-1"
-          value={"F-301"}
-        >
-          F-301
-        </button>
-        <button
-          type="submit"
-          onClick={handleClick}
-          className="bg-gray-300 flex-1 rounded m-1 p-1"
-          value={"F-310"}
-        >
-          F-310
-        </button>
-        <div>{roomNumber}</div>
-        <Room
-          roomNumber={roomNumber}
-          deskData={deskData}
-          changeSitDesk={changeSitDesk}
-          changeStandDesk={changeStandDesk}
-          changeOldDesk={changeOldDesk}
-        />
-      </div>
+    return sessionData != undefined ? (
+      sessionData.isValid() ? (
+        <div>
+          <div>机を配置する</div>
+          <ModalButton>モーダルを開く</ModalButton>
+          <button
+            type="submit"
+            onClick={handleClick}
+            className="bg-gray-300 flex-1 rounded m-1 p-1"
+            value={"F-301"}
+          >
+            F-301
+          </button>
+          <button
+            type="submit"
+            onClick={handleClick}
+            className="bg-gray-300 flex-1 rounded m-1 p-1"
+            value={"F-310"}
+          >
+            F-310
+          </button>
+          <div>{roomNumber}</div>
+          <Room
+            roomNumber={roomNumber}
+            deskData={deskData}
+            changeSitDesk={changeSitDesk}
+            changeStandDesk={changeStandDesk}
+            changeOldDesk={changeOldDesk}
+          />
+        </div>
+      ) : (
+        signIn()
+      )
     ) : (
       signIn()
     );
