@@ -13,7 +13,6 @@ export const useDeskState = () => {
     (async () => {
       try {
         if (sessionData != undefined) {
-          console.log(sessionData)
           const authToken = sessionData.getAccessToken();
           const headers = {
             Authorization: `Bearer ${authToken.jwtToken}`,
