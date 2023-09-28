@@ -16,7 +16,7 @@ const ModalButton = ({ children }: Props) => {
 
   const windowSize = useGetWindowSize();
 
-//   console.log(isOpen);
+  //   console.log(isOpen);
 
   return (
     <div>

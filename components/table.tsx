@@ -1,5 +1,5 @@
 import { useSessionState } from "@/hooks/useSessionState";
-import { Rect, Text } from "react-konva";
+import { Group, Rect, Text } from "react-konva";
 
 interface Props {
   deskData: DeskDataType;
@@ -20,7 +20,7 @@ export default function Table({
 }: Props) {
   const authName = useSessionState().sessionData?.getIdToken().payload.name;
   const handleClick = (e: any) => {
-    if (deskData.username == undefined) {
+    if (deskData.username == undefined || deskData.username == " ") {
       changeSitDesk(deskData.desk_id);
     } else if (deskData.username == authName) {
       changeStandDesk(deskData.desk_id);
@@ -30,27 +30,43 @@ export default function Table({
     }
   };
   return (
-    <>
+    <Group onClick={handleClick}>
       <Rect
         x={deskData.position.x}
         y={deskData.position.y}
         height={deskData.size.y}
         width={deskData.size.x}
-        fill="yellow"
-        onClick={handleClick}
+        fill="#fff3b8"
         stroke="black"
         strokeWidth={1}
       />
       {deskData.username != undefined ? (
-        <Text
-          text={deskData.username}
-          x={deskData.position.x + deskData.size.x / 2}
-          y={deskData.position.y + deskData.size.y / 2}
-          rotation={-90}
-        ></Text>
+        deskData.size.x > deskData.size.y ? (
+          <Text
+            text={deskData.username}
+            x={deskData.position.x}
+            y={deskData.position.y}
+            width={deskData.size.x}
+            height={deskData.size.y}
+            rotation={0}
+            align="center"
+            verticalAlign="middle"
+          />
+        ) : (
+          <Text
+            text={deskData.username}
+            x={deskData.position.x}
+            y={deskData.position.y + deskData.size.y}
+            width={deskData.size.y}
+            height={deskData.size.x}
+            rotation={-90}
+            align="center"
+            verticalAlign="middle"
+          />
+        )
       ) : (
         <></>
       )}
-    </>
+    </Group>
   );
 }

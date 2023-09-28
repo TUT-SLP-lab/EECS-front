@@ -40,11 +40,12 @@ export function SlackAuthenticator(props: any) {
       .then((user) => {
         setUser(user);
         setAuthState("signedIn");
-        console.log("signedIn");
+        console.log(user);
       })
-      .catch(() => {
+      .catch((e) => {
+        // 認証できていないので、認証を行う
         setAuthState("signIn");
-        console.log("signIn");
+        console.log(e);
       });
     return () => listner();
   }, []);

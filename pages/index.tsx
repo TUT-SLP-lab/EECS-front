@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import { useDeskState } from "@/hooks/useDeskState";
 import { useSessionState } from "@/hooks/useSessionState";
-import { DeskView } from "@/components/layouts/DeskView";
+import { MainView } from "@/components/layouts/MainView";
 import { SlackAuthenticator } from "@/components/common/SlackAuthenticator";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
 
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <SlackAuthenticator>
       {/* <AmplifyProvider> */}
-      <DeskView />
+      <MainView />
       {/* </AmplifyProvider> */}
     </SlackAuthenticator>
   );

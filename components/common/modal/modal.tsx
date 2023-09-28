@@ -2,7 +2,8 @@
 import { useGetWindowSize } from "@/hooks/useGetWindowSize";
 import React, { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Stage, Layer, Rect, Text } from "react-konva";
+import { Stage, Layer, Rect, Text, Group } from "react-konva";
+import { InnerModalButton } from "./InnerModalButton";
 
 interface Props {
   isOpen: boolean;
@@ -15,11 +16,18 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
   const windowSize = useGetWindowSize();
 
   const changeDesk = () => {
-    changeSitDesk(changeDeskID)
-    onClose()
-  }
+    changeSitDesk(changeDeskID);
+    onClose();
+  };
 
   if (!isOpen) return null;
+
+  const modalStyle = {
+    width: 400,
+    height: 100,
+    X: (windowSize.width - 400) / 2,
+    Y: (windowSize.height - 200) / 2,
+  };
 
   return createPortal(
     <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"'>
@@ -37,10 +45,10 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
 
           {/* モーダル本体 */}
           <Rect
-            x={windowSize.width / 4}
-            y={windowSize.height / 4}
-            width={400}
-            height={100}
+            x={modalStyle.X}
+            y={modalStyle.Y}
+            width={modalStyle.width}
+            height={modalStyle.height}
             fill="white"
             shadowBlur={10}
             cornerRadius={10}
@@ -48,50 +56,26 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
 
           {/* モーダル内のコンテンツ */}
           <Text
-            x={windowSize.width / 4 + 20}
-            y={windowSize.height / 4 + 20}
+            x={modalStyle.X + 20}
+            y={modalStyle.Y + 20}
             text="本当に上書きしてもよろしいですか？"
             fontSize={20}
             fill="black"
           />
-          <Rect
-            x={windowSize.width / 4 + 90}
-            y={windowSize.height / 4 + 50}
-            width={80}
-            height={40}
-            fill="silver"
+
+          {/* モーダル内のボタン */}
+          <InnerModalButton
+            x={modalStyle.X + 90}
+            y={modalStyle.Y + 50}
             onClick={changeDesk}
-            cornerRadius={8}
-            >
-          </Rect>
-          <Text
-            x={windowSize.width / 4 + 115}
-            y={windowSize.height / 4 + 65}
             text="はい"
-            fontSize={20}
-            fill="black"
-            onClick={changeDesk}
-            >
-          </Text>
-          <Rect
-            x={windowSize.width / 4 + 220}
-            y={windowSize.height / 4 + 50}
-            width={80}
-            height={40}
-            fill="silver"
+          />
+          <InnerModalButton
+            text="いいえ"
+            x={modalStyle.X + 220}
+            y={modalStyle.Y + 50}
             onClick={onClose}
-            cornerRadius={8}
-            >
-          </Rect>
-          <Text
-            x={windowSize.width / 4 + 245}
-            y={windowSize.height / 4 + 65}
-            text="はい"
-            fontSize={20}
-            fill="black"
-            onClick={onClose}
-            >
-          </Text>
+          />
         </Layer>
       </Stage>
     </div>,

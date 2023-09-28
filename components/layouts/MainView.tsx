@@ -1,10 +1,10 @@
 import { useModalState } from "@/hooks/useModalState";
 import { use, useState } from "react";
-import Modal from "../modal";
+import Modal from "../common/modal/modal";
 import Room from "../room";
 import { useDeskState } from "@/hooks/useDeskState";
 
-export const DeskView = () => {
+export const MainView = () => {
   const { isModalOpen, openModal, closeModal } = useModalState();
   const [changeDeskID, setChangeDeskID] = useState("");
   const { deskDatas, changeSitDesk, changeStandDesk, changeOldDesk } =
