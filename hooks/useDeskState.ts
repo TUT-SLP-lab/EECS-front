@@ -43,7 +43,7 @@ export const useDeskState = () => {
         Authorization: authToken.getJwtToken(),
       };
       const response = await axios
-        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`, {
+        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/`,{desk_id: id}, {
           headers: headers,
         })
         .then((response) => response.data)
