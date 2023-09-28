@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   roomNumber: string;
-  deskData: DeskDataType[];
+  deskDatas: DeskDataType[];
   changeSitDesk: (id: string) => void;
   changeStandDesk: (id: string) => void;
   changeOldDesk: (name: string) => void;
@@ -15,15 +15,15 @@ interface Props {
 
 export default function Room({
   roomNumber,
-  deskData,
+  deskDatas: deskDatas,
   changeSitDesk,
   changeStandDesk,
   changeOldDesk,
   openModal,
   targetDesk,
-  authName
+  authName,
 }: Props) {
-  console.log(deskData)
+  console.log(deskDatas);
   return (
     <>
       <Stage height={740} width={640}>
@@ -36,7 +36,7 @@ export default function Room({
             width={640}
             height={740}
           />
-          {deskData.map((deskData, index) =>
+          {deskDatas.map((deskData, index) =>
             deskData.room == roomNumber ? (
               <Table
                 deskData={deskData}
@@ -50,7 +50,7 @@ export default function Room({
               />
             ) : (
               <React.Fragment key={index}></React.Fragment>
-          )
+            )
           )}
         </Layer>
       </Stage>

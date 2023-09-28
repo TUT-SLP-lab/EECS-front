@@ -5,7 +5,7 @@ import { useSessionState } from "./useSessionState";
 axios.defaults.withCredentials = true;
 
 export const useDeskState = () => {
-  const [deskData, setDeskData] = useState<DeskDataType[]>([]);
+  const [deskDatas, setDeskDatas] = useState<DeskDataType[]>([]);
   const { sessionData } = useSessionState();
   const [isAPIWaiting, setIsSPIWaiting] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ export const useDeskState = () => {
             .then((response) => {
               // Handle the response here
               // console.log(response.data); // Example: Logging the response data
-              setDeskData(response.data);
+              setDeskDatas(response.data);
             })
             .catch((error) => {
               // Handle any errors here
@@ -52,7 +52,7 @@ export const useDeskState = () => {
           console.error("An error occurred:", error);
         });
       changeOldDesk(response.username);
-      setDeskData((prevState) =>
+      setDeskDatas((prevState) =>
         prevState.map((obj) =>
           obj.desk_id === response.desk_id ? response : obj
         )
@@ -75,7 +75,7 @@ export const useDeskState = () => {
           // Handle any errors here
           console.error("An error occurred:", error);
         });
-      setDeskData((prevState) =>
+      setDeskDatas((prevState) =>
         prevState.map((obj) =>
           obj.desk_id === response.desk_id
             ? {
@@ -98,7 +98,7 @@ export const useDeskState = () => {
   }
 
   const changeOldDesk = (name: string) => {
-    setDeskData((prevState) =>
+    setDeskDatas((prevState) =>
       prevState.map((obj) =>
         obj.username === name
           ? {
@@ -117,8 +117,8 @@ export const useDeskState = () => {
   };
 
   return {
-    deskData,
-    setDeskData,
+    deskDatas,
+    setDeskDatas,
     changeSitDesk,
     changeStandDesk,
     changeOldDesk,

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import { cookies } from 'next/headers'
+import { CognitoUserSession } from "amazon-cognito-identity-js";
 
 export const useSessionState = () => {
-  const [sessionData, setSessionData] = useState<any>(undefined);
+  const [sessionData, setSessionData] = useState<CognitoUserSession>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
