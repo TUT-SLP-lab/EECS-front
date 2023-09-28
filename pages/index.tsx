@@ -20,6 +20,7 @@ Amplify.configure({
       responseType: "code",
     },
   },
+  ssr: true,
 });
 
 async function signIn() {
@@ -54,55 +55,64 @@ export default function Home() {
     setChangeDeskID(desk_id);
   };
 
-
   if (!isLoading) {
     return sessionData != undefined ? (
       sessionData.isValid() ? (
-        <div>
-          <div>机を配置する</div>
-          <Modal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            changeDeskID={changeDeskID}
-            changeSitDesk={changeSitDesk}
-          />
-          {/* <ModalButton>モーダルを開く</ModalButton> */}
-          <button
-            type="submit"
-            onClick={handleClick}
-            className="bg-gray-300 flex-1 rounded m-1 p-1"
-            value={"F-301"}
-          >
-            F-301
-          </button>
-          <button
-            type="submit"
-            onClick={handleClick}
-            className="bg-gray-300 flex-1 rounded m-1 p-1"
-            value={"F-310"}
-          >
-            F-310
-          </button>
-          <div>{roomNumber}</div>
-          <Room
-            roomNumber={roomNumber}
-            deskData={deskData}
-            changeSitDesk={changeSitDesk}
-            changeStandDesk={changeStandDesk}
-            changeOldDesk={changeOldDesk}
-            openModal={openModal}
-            targetDesk={targetDesk}
-            authName={sessionData.idToken.payload.name}
-          />
-        </div>
+        deskData.length != 0 ? (
+          <div>
+            <div>机を配置する</div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              changeDeskID={changeDeskID}
+              changeSitDesk={changeSitDesk}
+            />
+            {/* <ModalButton>モーダルを開く</ModalButton> */}
+            <button
+              type="submit"
+              onClick={handleClick}
+              className="bg-gray-300 flex-1 rounded m-1 p-1"
+              value={"F-301"}
+            >
+              F-301
+            </button>
+            <button
+              type="submit"
+              onClick={handleClick}
+              className="bg-gray-300 flex-1 rounded m-1 p-1"
+              value={"F-310"}
+            >
+              F-310
+            </button>
+            <div>{roomNumber}</div>
+            <Room
+              roomNumber={roomNumber}
+              deskData={deskData}
+              changeSitDesk={changeSitDesk}
+              changeStandDesk={changeStandDesk}
+              changeOldDesk={changeOldDesk}
+              openModal={openModal}
+              targetDesk={targetDesk}
+              authName={sessionData.idToken.payload.name}
+            />
+          </div>
+        ) : (
+          <></>
+        )
       ) : (
         <>
-        <button type="submit" onClick={signIn}> 認証 </button>
+          <button type="submit" onClick={signIn}>
+            {" "}
+            認証{" "}
+          </button>
         </>
-        )
+      )
     ) : (
       <>
-      <button type="submit" onClick={signIn}> 認証 </button>
+        <button type="submit" onClick={signIn}>
+          {" "}
+          認証{" "}
+        </button>
       </>
       // signIn()
     );

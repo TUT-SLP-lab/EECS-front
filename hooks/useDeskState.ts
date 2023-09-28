@@ -17,7 +17,7 @@ export const useDeskState = () => {
           const headers = {
             Authorization: authToken.getJwtToken(),
           };
-          await axios
+          const response = await axios
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
             .then((response) => {
               // Handle the response here
@@ -34,6 +34,8 @@ export const useDeskState = () => {
       }
     })();
   }, [sessionData]);
+
+  console.log(deskData)
 
   const changeSitDesk = (id: string) => {
     useEffect(() => {

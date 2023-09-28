@@ -23,6 +23,7 @@ export default function Room({
   targetDesk,
   authName
 }: Props) {
+  console.log(deskData)
   return (
     <>
       <Stage height={1000} width={1000}>
