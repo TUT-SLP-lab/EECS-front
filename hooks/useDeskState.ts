@@ -35,75 +35,67 @@ export const useDeskState = () => {
     })();
   }, [sessionData]);
 
-  const changeSitDesk = (id: string) => {
-    useEffect(() => {
-      (async () => {
-        console.log("waiting")
-        if (sessionData != undefined) {
-          const authToken = sessionData.getIdToken();
-          const headers = {
-            Authorization: authToken.getJwtToken(),
-          };
-          const response = await axios
-            .put(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
-              headers: headers,
-            })
-            .then((response) => response.data)
-            .catch((error) => {
-              // Handle any errors here
-              console.error("An error occurred:", error);
-            });
-          changeOldDesk(response.username);
-          setDeskData((prevState) =>
-            prevState.map((obj) =>
-              obj.desk_id === response.desk_id ? response : obj
-            )
-          );
-        }
-      })();
-    }, [id]);
-  };
+  async function changeSitDesk(id: string) {
+    console.log("waiting");
+    if (sessionData != undefined) {
+      const authToken = sessionData.getIdToken();
+      const headers = {
+        Authorization: authToken.getJwtToken(),
+      };
+      const response = await axios
+        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
+          headers: headers,
+        })
+        .then((response) => response.data)
+        .catch((error) => {
+          // Handle any errors here
+          console.error("An error occurred:", error);
+        });
+      changeOldDesk(response.username);
+      setDeskData((prevState) =>
+        prevState.map((obj) =>
+          obj.desk_id === response.desk_id ? response : obj
+        )
+      );
+    }
+  }
 
-  const changeStandDesk = (id: string) => {
-    useEffect(() => {
-      (async () => {
-        if (sessionData != undefined) {
-          const authToken = sessionData.getIdToken();
-          const headers = {
-            Authorization: authToken.getJwtToken(),
-          };
-          const response = await axios
-            .delete(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
-              headers: headers,
-            })
-            .then((response) => response.data)
-            .catch((error) => {
-              // Handle any errors here
-              console.error("An error occurred:", error);
-            });
-          setDeskData((prevState) =>
-            prevState.map((obj) =>
-              obj.desk_id === response.desk_id
-                ? {
-                    room: response.room,
-                    desk_id: response.desk_id,
-                    email: undefined,
-                    username: undefined,
-                    position: {
-                      x: response.position.x,
-                      y: response.position.y,
-                    },
-                    size: { x: response.size.x, y: response.size.y },
-                    createdAt: response.createdAt,
-                    updatedAt: response.updatedAt,
-                  }
-                : obj
-            )
-          );
-        }
-      })();
-    }, [id]);
-  };
+  async function changeStandDesk(id: string) {
+    if (sessionData != undefined) {
+      const authToken = sessionData.getIdToken();
+      const headers = {
+        Authorization: authToken.getJwtToken(),
+      };
+      const response = await axios
+        .delete(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
+          headers: headers,
+        })
+        .then((response) => response.data)
+        .catch((error) => {
+          // Handle any errors here
+          console.error("An error occurred:", error);
+        });
+      setDeskData((prevState) =>
+        prevState.map((obj) =>
+          obj.desk_id === response.desk_id
+            ? {
+                room: response.room,
+                desk_id: response.desk_id,
+                email: undefined,
+                username: undefined,
+                position: {
+                  x: response.position.x,
+                  y: response.position.y,
+                },
+                size: { x: response.size.x, y: response.size.y },
+                createdAt: response.createdAt,
+                updatedAt: response.updatedAt,
+              }
+            : obj
+        )
+      );
+    }
+  }
 
   const changeOldDesk = (name: string) => {
     setDeskData((prevState) =>
