@@ -10,7 +10,6 @@ interface Props {
   changeOldDesk: (name: string) => void;
   openModal: () => void;
   targetDesk: (desk_id: string) => void;
-  authName: string;
 }
 
 export default function Room({
@@ -21,7 +20,6 @@ export default function Room({
   changeOldDesk,
   openModal,
   targetDesk,
-  authName,
 }: Props) {
   console.log(deskDatas);
   return (
@@ -45,7 +43,6 @@ export default function Room({
                 changeOldDesk={changeOldDesk}
                 openModal={openModal}
                 targetDesk={targetDesk}
-                authName={authName}
                 key={index}
               />
             ) : (

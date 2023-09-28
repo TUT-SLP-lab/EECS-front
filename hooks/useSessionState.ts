@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
 export const useSessionState = () => {
-  const [sessionData, setSessionData] = useState<CognitoUserSession>();
+  const [sessionData, setSessionData] = useState<CognitoUserSession | undefined>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+import { useSessionState } from "@/hooks/useSessionState";
 import { Rect, Text } from "react-konva";
 
 interface Props {
@@ -7,7 +8,6 @@ interface Props {
   changeOldDesk: (name: string) => void;
   openModal: () => void;
   targetDesk: (desk_id: string) => void;
-  authName: string;
 }
 
 export default function Table({
@@ -17,16 +17,16 @@ export default function Table({
   changeOldDesk,
   openModal,
   targetDesk,
-  authName
 }: Props) {
+  const authName = useSessionState().sessionData?.getIdToken().payload.name;
   const handleClick = (e: any) => {
     if (deskData.username == undefined) {
       changeSitDesk(deskData.desk_id);
     } else if (deskData.username == authName) {
       changeStandDesk(deskData.desk_id);
-    }else{
-      targetDesk(deskData.desk_id)
-      openModal()
+    } else {
+      targetDesk(deskData.desk_id);
+      openModal();
     }
   };
   return (
