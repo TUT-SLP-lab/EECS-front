@@ -19,7 +19,7 @@ export const MainView = () => {
   };
 
   return (
-    <div>
+    <div className="p-1">
       <div>EECS</div>
       <Modal
         isOpen={isModalOpen}
