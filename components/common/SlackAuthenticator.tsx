@@ -12,11 +12,9 @@ export function SlackAuthenticator(props: any) {
         customProvider: process.env.NEXT_PUBLIC_CUSTOMPROVIDER ?? "",
       })
         .then((credentials) => {
-          console.log(credentials);
           return credentials;
         })
         .catch((err) => console.log(err));
-      console.log(user);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +30,6 @@ export function SlackAuthenticator(props: any) {
       }
       if (payload.event === "signOut") {
         setUser(null);
-        // console.log("signIn");
         console.log("use Effect signIn");
       }
     });
@@ -40,17 +37,14 @@ export function SlackAuthenticator(props: any) {
       .then((user) => {
         setUser(user);
         setAuthState("signedIn");
-        console.log(user);
       })
       .catch((e) => {
-        // 認証できていないので、認証を行う
         setAuthState("signIn");
         console.log(e);
       });
     return () => listner();
   }, []);
 
-  // ログイン状態なら、props.childrenを返す
   if (authState === "signedIn") {
     return <>{props.children}</>;
   }

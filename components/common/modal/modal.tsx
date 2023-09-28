@@ -1,8 +1,7 @@
-// components/Modal.js
 import { useGetWindowSize } from "@/hooks/useGetWindowSize";
-import React, { ReactNode } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
-import { Stage, Layer, Rect, Text, Group } from "react-konva";
+import { Stage, Layer, Rect, Text } from "react-konva";
 import { InnerModalButton } from "./InnerModalButton";
 
 interface Props {
@@ -33,7 +32,6 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
     <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"'>
       <Stage width={windowSize.width} height={windowSize.height}>
         <Layer>
-          {/* モーダルの背景 */}
           <Rect
             x={0}
             y={0}
@@ -43,7 +41,6 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             onClick={onClose}
           />
 
-          {/* モーダル本体 */}
           <Rect
             x={modalStyle.X}
             y={modalStyle.Y}
@@ -54,7 +51,6 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             cornerRadius={10}
           />
 
-          {/* モーダル内のコンテンツ */}
           <Text
             x={modalStyle.X + 20}
             y={modalStyle.Y + 20}
@@ -63,7 +59,6 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             fill="black"
           />
 
-          {/* モーダル内のボタン */}
           <InnerModalButton
             x={modalStyle.X + 90}
             y={modalStyle.Y + 50}
@@ -79,7 +74,7 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
         </Layer>
       </Stage>
     </div>,
-    document.body // この要素にモーダルをレンダリング
+    document.body
   );
 };
 

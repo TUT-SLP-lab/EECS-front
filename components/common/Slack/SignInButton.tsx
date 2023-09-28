@@ -1,4 +1,3 @@
-import { MouseEventHandler } from "react";
 import { SlackLogo } from "./SlackLogo";
 
 export const SlackSignInButton = ({ onClick }: any) => {

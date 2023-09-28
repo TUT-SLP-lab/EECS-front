@@ -7,7 +7,6 @@ axios.defaults.withCredentials = true;
 export const useDeskState = () => {
   const [deskDatas, setDeskDatas] = useState<DeskDataType[]>([]);
   const { sessionData } = useSessionState();
-  const [isAPIWaiting, setIsSPIWaiting] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -17,15 +16,12 @@ export const useDeskState = () => {
           const headers = {
             Authorization: authToken.getJwtToken(),
           };
-          const response = await axios
+          await axios
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
             .then((response) => {
-              // Handle the response here
-              // console.log(response.data); // Example: Logging the response data
               setDeskDatas(response.data);
             })
             .catch((error) => {
-              // Handle any errors here
               console.error("An error occurred:", error);
             });
         }
@@ -48,7 +44,6 @@ export const useDeskState = () => {
         })
         .then((response) => response.data)
         .catch((error) => {
-          // Handle any errors here
           console.error("An error occurred:", error);
         });
       changeOldDesk(response.username);
@@ -72,7 +67,6 @@ export const useDeskState = () => {
         })
         .then((response) => response.data)
         .catch((error) => {
-          // Handle any errors here
           console.error("An error occurred:", error);
         });
       setDeskDatas((prevState) =>

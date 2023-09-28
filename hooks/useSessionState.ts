@@ -11,13 +11,6 @@ export const useSessionState = () => {
 
   useEffect(() => {
     (async () => {
-      // const userInfo = await Auth.currentUserInfo().catch((e) => false);
-      // if (userInfo) {
-      //   const session = await Auth.currentSession();
-      //   setSessionData(session);
-      // } else {
-      //   setSessionData(undefined);
-      // }
       const session = await Auth.currentSession();
       setSessionData(session);
       setIsLoading(false);

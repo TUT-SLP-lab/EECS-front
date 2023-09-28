@@ -1,5 +1,5 @@
 import { useModalState } from "@/hooks/useModalState";
-import { use, useState } from "react";
+import { useState } from "react";
 import Modal from "../common/modal/modal";
 import Room from "../room";
 import { useDeskState } from "@/hooks/useDeskState";
@@ -20,14 +20,13 @@ export const MainView = () => {
 
   return (
     <div>
-      <div>机を配置する</div>
+      <div>EECS</div>
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
         changeDeskID={changeDeskID}
         changeSitDesk={changeSitDesk}
       />
-      {/* <ModalButton>モーダルを開く</ModalButton> */}
       <button
         type="submit"
         onClick={handleClick}
@@ -44,7 +43,6 @@ export const MainView = () => {
       >
         F-310
       </button>
-      <div>{roomID}</div>
       <Room
         roomNumber={roomID}
         deskDatas={deskDatas}

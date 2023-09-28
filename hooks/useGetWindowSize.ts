@@ -1,5 +1,4 @@
-// components/Modal.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useGetWindowSize = () => {
   const isClient = typeof window === "object";
@@ -24,7 +23,7 @@ export const useGetWindowSize = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isClient]); // 空の依存リストで初回のみ実行
+  }, [isClient]);
 
   return windowSize;
 };
