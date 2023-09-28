@@ -28,7 +28,7 @@ export default function Table({
     }
   };
   return (
-    <Group onClick={handleClick}>
+    <Group onClick={handleClick} onTap={handleClick}>
       <Rect
         x={deskData.position.x}
         y={deskData.position.y}

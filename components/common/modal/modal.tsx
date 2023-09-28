@@ -39,6 +39,7 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             height={windowSize.height}
             fill="rgba(0, 0, 0, 0.5)"
             onClick={onClose}
+            onTap={onClose}
           />
 
           <Rect

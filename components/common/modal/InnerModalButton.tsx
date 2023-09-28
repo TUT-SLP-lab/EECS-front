@@ -11,7 +11,7 @@ export const InnerModalButton = ({ x, y, onClick, text }: Props) => {
     height: 40,
   };
   return (
-    <Group x={x} y={y} onClick={onClick}>
+    <Group x={x} y={y} onClick={onClick} onTap={onClick}>
       <Rect
         width={innerButtonStyle.width}
         height={innerButtonStyle.height}
