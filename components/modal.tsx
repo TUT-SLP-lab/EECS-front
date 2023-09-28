@@ -26,7 +26,6 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
       <Stage width={windowSize.width} height={windowSize.height}>
         <Layer>
           {/* モーダルの背景 */}
-          {console.log("test")}
           <Rect
             x={0}
             y={0}
@@ -62,14 +61,16 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             height={40}
             fill="silver"
             onClick={changeDesk}
+            cornerRadius={8}
             >
           </Rect>
           <Text
-            x={windowSize.width / 4 + 120}
-            y={windowSize.height / 4 + 70}
+            x={windowSize.width / 4 + 115}
+            y={windowSize.height / 4 + 65}
             text="はい"
             fontSize={20}
             fill="black"
+            onClick={changeDesk}
             >
           </Text>
           <Rect
@@ -79,8 +80,18 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             height={40}
             fill="silver"
             onClick={onClose}
+            cornerRadius={8}
             >
           </Rect>
+          <Text
+            x={windowSize.width / 4 + 245}
+            y={windowSize.height / 4 + 65}
+            text="はい"
+            fontSize={20}
+            fill="black"
+            onClick={onClose}
+            >
+          </Text>
         </Layer>
       </Stage>
     </div>,

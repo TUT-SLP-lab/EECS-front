@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
+import { cookies } from 'next/headers'
 
 export const useSessionState = () => {
   const [sessionData, setSessionData] = useState<any>(undefined);

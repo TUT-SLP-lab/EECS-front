@@ -58,9 +58,8 @@ export default function Home() {
   if (!isLoading) {
     return sessionData != undefined ? (
       sessionData.isValid() ? (
-        deskData.length != 0 ? (
           <div>
-            <div>机を配置する</div>
+            <div>EECS</div>
             <Modal
               isOpen={isModalOpen}
               onClose={closeModal}
@@ -84,7 +83,7 @@ export default function Home() {
             >
               F-310
             </button>
-            <div>{roomNumber}</div>
+            {/* <div>{roomNumber}</div> */}
             <Room
               roomNumber={roomNumber}
               deskData={deskData}
@@ -96,10 +95,8 @@ export default function Home() {
               authName={sessionData.idToken.payload.name}
             />
           </div>
-        ) : (
-          <></>
-        )
-      ) : (
+        ) 
+      : (
         <>
           <button type="submit" onClick={signIn}>
             {" "}

@@ -21,7 +21,7 @@ export const useDeskState = () => {
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
             .then((response) => {
               // Handle the response here
-              console.log(response.data); // Example: Logging the response data
+              // console.log(response.data); // Example: Logging the response data
               setDeskData(response.data);
             })
             .catch((error) => {
@@ -43,7 +43,7 @@ export const useDeskState = () => {
         Authorization: authToken.getJwtToken(),
       };
       const response = await axios
-        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`,{}, {
+        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`,undefined, {
           headers: headers,
         })
         .then((response) => response.data)

@@ -26,15 +26,15 @@ export default function Room({
   console.log(deskData)
   return (
     <>
-      <Stage height={1000} width={1000}>
+      <Stage height={740} width={640}>
         <Layer>
           <Rect
             stroke="black"
             strokeWidth={4}
-            x={1}
-            y={1}
-            width={999}
-            height={999}
+            x={0}
+            y={0}
+            width={640}
+            height={740}
           />
           {deskData.map((deskData, index) =>
             deskData.room == roomNumber ? (
