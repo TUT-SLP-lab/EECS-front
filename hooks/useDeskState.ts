@@ -35,11 +35,10 @@ export const useDeskState = () => {
     })();
   }, [sessionData]);
 
-  console.log(deskData)
-
   const changeSitDesk = (id: string) => {
     useEffect(() => {
       (async () => {
+        console.log("waiting")
         if (sessionData != undefined) {
           const authToken = sessionData.getIdToken();
           const headers = {
