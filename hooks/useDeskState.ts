@@ -43,7 +43,7 @@ export const useDeskState = () => {
         Authorization: authToken.getJwtToken(),
       };
       const response = await axios
-        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
+        .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`, {
           headers: headers,
         })
         .then((response) => response.data)
@@ -67,7 +67,7 @@ export const useDeskState = () => {
         Authorization: authToken.getJwtToken(),
       };
       const response = await axios
-        .delete(`${process.env.NEXT_PUBLIC_APIURL}/desk${id}`, {
+        .delete(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`, {
           headers: headers,
         })
         .then((response) => response.data)
