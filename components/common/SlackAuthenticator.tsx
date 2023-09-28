@@ -52,7 +52,6 @@ export function SlackAuthenticator(props: any) {
   return (
     <div className="flex items-center justify-center h-screen">
       <SlackSignInButton onClick={signIn} />
-      <p>{user}</p>
     </div>
   );
 }
