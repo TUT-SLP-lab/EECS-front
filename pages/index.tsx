@@ -36,7 +36,7 @@ async function signIn() {
 
 export default function Home() {
   const { sessionData, isLoading } = useSessionState();
-  const [roomNumber, setRoomNumber] = useState("F-301");
+  const [roomNumber, setRoomNumber] = useState("f-301");
   const {
     deskData,
     setDeskData,
@@ -72,7 +72,7 @@ export default function Home() {
               type="submit"
               onClick={handleClick}
               className="bg-gray-300 flex-1 rounded m-1 p-1"
-              value={"F-301"}
+              value={"f-301"}
             >
               F-301
             </button>
@@ -80,7 +80,7 @@ export default function Home() {
               type="submit"
               onClick={handleClick}
               className="bg-gray-300 flex-1 rounded m-1 p-1"
-              value={"F-310"}
+              value={"f-310"}
             >
               F-310
             </button>
