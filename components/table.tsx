@@ -5,7 +5,6 @@ interface Props {
   deskData: DeskDataType;
   changeSitDesk: (id: string) => void;
   changeStandDesk: (id: string) => void;
-  changeOldDesk: (name: string) => void;
   openModal: () => void;
   targetDesk: (desk_id: string) => void;
 }
@@ -14,7 +13,6 @@ export default function Table({
   deskData,
   changeSitDesk,
   changeStandDesk,
-  changeOldDesk,
   openModal,
   targetDesk,
 }: Props) {

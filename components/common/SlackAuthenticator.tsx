@@ -4,7 +4,6 @@ import { SlackSignInButton } from "./Slack/SignInButton";
 
 export function SlackAuthenticator(props: any) {
   const [authState, setAuthState] = useState<string>();
-  const [user, setUser] = useState<any>("default");
 
   const signIn = async () => {
     try {
@@ -24,18 +23,15 @@ export function SlackAuthenticator(props: any) {
     const listner = Hub.listen("auth", (data) => {
       const { payload } = data;
       if (payload.event === "signIn") {
-        setUser(payload.data);
         setAuthState("signedIn");
         console.log("use Effect signedIn");
       }
       if (payload.event === "signOut") {
-        setUser(null);
         console.log("use Effect signIn");
       }
     });
     Auth.currentAuthenticatedUser()
-      .then((user) => {
-        setUser(user);
+      .then(() => {
         setAuthState("signedIn");
       })
       .catch((e) => {

@@ -7,7 +7,7 @@ import { useDeskState } from "@/hooks/useDeskState";
 export const MainView = () => {
   const { isModalOpen, openModal, closeModal } = useModalState();
   const [changeDeskID, setChangeDeskID] = useState("");
-  const { deskDatas, changeSitDesk, changeStandDesk, changeOldDesk } =
+  const { deskDatas, changeSitDesk, changeStandDesk } =
     useDeskState();
   const [roomID, setRoomID] = useState("f-301");
 
@@ -48,7 +48,6 @@ export const MainView = () => {
         deskDatas={deskDatas}
         changeSitDesk={changeSitDesk}
         changeStandDesk={changeStandDesk}
-        changeOldDesk={changeOldDesk}
         openModal={openModal}
         targetDesk={targetDesk}
       />

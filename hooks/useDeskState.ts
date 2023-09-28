@@ -32,7 +32,6 @@ export const useDeskState = () => {
   }, [sessionData]);
 
   async function changeSitDesk(id: string) {
-    console.log("waiting");
     if (sessionData != undefined) {
       const authToken = sessionData.getIdToken();
       const headers = {
@@ -112,9 +111,7 @@ export const useDeskState = () => {
 
   return {
     deskDatas,
-    setDeskDatas,
     changeSitDesk,
     changeStandDesk,
-    changeOldDesk,
   };
 };
