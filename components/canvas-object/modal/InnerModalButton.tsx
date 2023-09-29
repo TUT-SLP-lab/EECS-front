@@ -1,4 +1,5 @@
-import { Group, Rect, Text } from "react-konva";
+import { Rect, Text } from "react-konva";
+import { ClickableGroup } from "../ClickableGroup";
 type Props = {
   x: number;
   y: number;
@@ -11,7 +12,7 @@ export const InnerModalButton = ({ x, y, onClick, text }: Props) => {
     height: 40,
   };
   return (
-    <Group x={x} y={y} onClick={onClick} onTap={onClick}>
+    <ClickableGroup x={x} y={y} onClick={onClick}>
       <Rect
         width={innerButtonStyle.width}
         height={innerButtonStyle.height}
@@ -27,6 +28,6 @@ export const InnerModalButton = ({ x, y, onClick, text }: Props) => {
         fontSize={20}
         fill="black"
       />
-    </Group>
+    </ClickableGroup>
   );
 };

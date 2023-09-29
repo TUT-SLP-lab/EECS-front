@@ -1,5 +1,6 @@
 import { useSessionState } from "@/hooks/useSessionState";
-import { Group, Rect, Text } from "react-konva";
+import { Rect, Text } from "react-konva";
+import { ClickableGroup } from "./ClickableGroup";
 
 interface Props {
   deskData: DeskDataType;
@@ -28,12 +29,14 @@ export default function Table({
     }
   };
   return (
-    <Group onClick={handleClick} onTap={handleClick}>
+    <ClickableGroup
+      onClick={handleClick}
+      x={deskData.position.x}
+      y={deskData.position.y}
+    >
       <Rect
-        x={deskData.position.x}
-        y={deskData.position.y}
-        height={deskData.size.y}
         width={deskData.size.x}
+        height={deskData.size.y}
         fill="#fff3b8"
         stroke="black"
         strokeWidth={1}
@@ -42,8 +45,6 @@ export default function Table({
         deskData.size.x > deskData.size.y ? (
           <Text
             text={deskData.username}
-            x={deskData.position.x}
-            y={deskData.position.y}
             width={deskData.size.x}
             height={deskData.size.y}
             rotation={0}
@@ -53,11 +54,12 @@ export default function Table({
         ) : (
           <Text
             text={deskData.username}
-            x={deskData.position.x}
-            y={deskData.position.y + deskData.size.y}
+            // 回転に対応するため、y座標をGroup内で加算
+            y={deskData.size.y}
+            // 回転に対応するため、widthとheightを入れ替え
             width={deskData.size.y}
             height={deskData.size.x}
-            rotation={-90}
+            rotation={-90} // 文字を横向きにするために-90度回転
             align="center"
             verticalAlign="middle"
           />
@@ -65,6 +67,6 @@ export default function Table({
       ) : (
         <></>
       )}
-    </Group>
+    </ClickableGroup>
   );
 }
