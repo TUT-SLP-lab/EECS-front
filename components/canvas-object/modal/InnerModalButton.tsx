@@ -3,25 +3,25 @@ import { ClickableGroup } from "../ClickableGroup";
 type Props = {
   x: number;
   y: number;
+  width: number;
+  height: number;
   onClick: () => void;
   text: string;
 };
-export const InnerModalButton = ({ x, y, onClick, text }: Props) => {
-  const innerButtonStyle = {
-    width: 80,
-    height: 40,
-  };
+export const InnerModalButton = ({
+  x,
+  y,
+  width,
+  height,
+  onClick,
+  text,
+}: Props) => {
   return (
     <ClickableGroup x={x} y={y} onClick={onClick}>
-      <Rect
-        width={innerButtonStyle.width}
-        height={innerButtonStyle.height}
-        fill="silver"
-        cornerRadius={8}
-      />
+      <Rect width={width} height={height} fill="silver" cornerRadius={8} />
       <Text
-        width={innerButtonStyle.width}
-        height={innerButtonStyle.height}
+        width={width}
+        height={height}
         align="center"
         verticalAlign="middle"
         text={text}

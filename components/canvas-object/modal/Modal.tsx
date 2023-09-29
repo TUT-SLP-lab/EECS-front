@@ -1,7 +1,7 @@
 import { useGetWindowSize } from "@/hooks/useGetWindowSize";
 import React from "react";
 import { createPortal } from "react-dom";
-import { Stage, Layer, Rect, Text } from "react-konva";
+import { Stage, Layer, Rect, Text, Group } from "react-konva";
 import { InnerModalButton } from "./InnerModalButton";
 
 interface Props {
@@ -27,6 +27,11 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
     X: (windowSize.width - 400) / 2,
     Y: (windowSize.height - 200) / 2,
   };
+  const modalButtonStyle = {
+    width: modalStyle.width / 5,
+    height: 40,
+    Y: 50,
+  };
 
   return createPortal(
     <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"'>
@@ -42,36 +47,39 @@ const Modal = ({ isOpen, onClose, changeDeskID, changeSitDesk }: Props) => {
             onTap={onClose}
           />
 
-          <Rect
-            x={modalStyle.X}
-            y={modalStyle.Y}
-            width={modalStyle.width}
-            height={modalStyle.height}
-            fill="white"
-            shadowBlur={10}
-            cornerRadius={10}
-          />
-
-          <Text
-            x={modalStyle.X + 20}
-            y={modalStyle.Y + 20}
-            text="本当に上書きしてもよろしいですか？"
-            fontSize={20}
-            fill="black"
-          />
-
-          <InnerModalButton
-            x={modalStyle.X + 90}
-            y={modalStyle.Y + 50}
-            onClick={changeDesk}
-            text="はい"
-          />
-          <InnerModalButton
-            text="いいえ"
-            x={modalStyle.X + 220}
-            y={modalStyle.Y + 50}
-            onClick={onClose}
-          />
+          <Group x={modalStyle.X} y={modalStyle.Y}>
+            <Rect
+              width={modalStyle.width}
+              height={modalStyle.height}
+              fill="white"
+              shadowBlur={10}
+              cornerRadius={10}
+            />
+            <Text
+              y={20}
+              width={modalStyle.width} // 中央揃えにするため、widthを指定
+              text="本当に上書きしてもよろしいですか？"
+              fontSize={20}
+              align="center"
+              fill="black"
+            />
+            <InnerModalButton
+              x={modalButtonStyle.width}
+              y={modalButtonStyle.Y}
+              width={modalButtonStyle.width}
+              height={modalButtonStyle.height}
+              onClick={changeDesk}
+              text="はい"
+            />
+            <InnerModalButton
+              x={modalStyle.width - modalButtonStyle.width * 2}
+              y={modalButtonStyle.Y}
+              width={modalButtonStyle.width}
+              height={modalButtonStyle.height}
+              onClick={onClose}
+              text="いいえ"
+            />
+          </Group>
         </Layer>
       </Stage>
     </div>,
