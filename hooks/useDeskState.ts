@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useSessionState } from "./useSessionState";
 
 axios.defaults.withCredentials = true;
@@ -18,8 +18,8 @@ export const useDeskState = () => {
           };
           await axios
             .get(`${process.env.NEXT_PUBLIC_APIURL}/desk`, { headers: headers })
-            .then((response) => {
-              setDeskDatas(response.data);
+            .then(({data}: AxiosResponse<DeskDataType[]>) => {
+              setDeskDatas(data);
             })
             .catch((error) => {
               console.error("An error occurred:", error);
@@ -37,20 +37,22 @@ export const useDeskState = () => {
       const headers = {
         Authorization: authToken.getJwtToken(),
       };
-      const response = await axios
+      await axios
         .put(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`,undefined, {
           headers: headers,
         })
-        .then((response) => response.data)
+        .then(({data}: AxiosResponse<DeskDataType>) => {
+          const new_desk = data;
+          changeOldDesk(new_desk);
+          setDeskDatas((desks) =>
+            desks.map((desk) =>
+              desk.desk_id === new_desk.desk_id ? new_desk : desk
+            )
+          );
+        })
         .catch((error) => {
           console.error("An error occurred:", error);
         });
-      changeOldDesk(response.username);
-      setDeskDatas((prevState) =>
-        prevState.map((obj) =>
-          obj.desk_id === response.desk_id ? response : obj
-        )
-      );
     }
   }
 
@@ -60,52 +62,34 @@ export const useDeskState = () => {
       const headers = {
         Authorization: authToken.getJwtToken(),
       };
-      const response = await axios
+      await axios
         .delete(`${process.env.NEXT_PUBLIC_APIURL}/desk/${id}`, {
           headers: headers,
         })
-        .then((response) => response.data)
+        .then(({data}: AxiosResponse<DeskDataType>) => {
+          const new_desk = data;
+          setDeskDatas((desks) =>
+            desks.map((desk) =>
+              (desk.desk_id === new_desk.desk_id) ? new_desk : desk
+            )
+          );
+        })
         .catch((error) => {
           console.error("An error occurred:", error);
         });
-      setDeskDatas((prevState) =>
-        prevState.map((obj) =>
-          obj.desk_id === response.desk_id
-            ? {
-                room: response.room,
-                desk_id: response.desk_id,
-                email: undefined,
-                username: undefined,
-                position: {
-                  x: response.position.x,
-                  y: response.position.y,
-                },
-                size: { x: response.size.x, y: response.size.y },
-                createdAt: response.createdAt,
-                updatedAt: response.updatedAt,
-              }
-            : obj
-        )
-      );
     }
   }
 
-  const changeOldDesk = (name: string) => {
-    setDeskDatas((prevState) =>
-      prevState.map((obj) =>
-        obj.username === name
-          ? {
-              room: obj.room,
-              desk_id: obj.desk_id,
-              email: undefined,
-              username: undefined,
-              position: { x: obj.position.x, y: obj.position.y },
-              size: { x: obj.size.x, y: obj.size.y },
-              createdAt: obj.createdAt,
-              updatedAt: obj.updatedAt,
-            }
-          : obj
-      )
+  const changeOldDesk = (new_desk: DeskDataType) => {
+    const {email} = new_desk;
+    setDeskDatas((desks) =>
+      desks.map((desk) => {
+        if (desk.email === email) {
+          desk.email = undefined;
+          desk.username = undefined;
+        }
+        return desk;
+      })
     );
   };
 

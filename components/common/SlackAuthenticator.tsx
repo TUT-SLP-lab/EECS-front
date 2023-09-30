@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
-import { SlackSignInButton } from "./Slack/SignInButton";
+import { SlackSignInButton } from "../Slack/SignInButton";
 
 export function SlackAuthenticator(props: any) {
   const [authState, setAuthState] = useState<string>();
