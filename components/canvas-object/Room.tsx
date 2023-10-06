@@ -47,7 +47,11 @@ export default function Room({
     stageRef.current.position({ x: 0, y: 0 });
   };
   return (
-    <div className="overflow-scroll" onScroll={handleScroll} id="room">
+    <div
+      className="overflow-scroll hidden-scrollbar"
+      onScroll={handleScroll}
+      id="room"
+    >
       <Stage
         width={width}
         height={height}
