@@ -29,9 +29,10 @@ export default function Room({
   const calcBound = (pos: { x: number; y: number }) => {
     const div = document.querySelector("#room") as HTMLDivElement;
     const roomWidth = div.clientWidth;
-    const roomHeight = div.clientHeight;
+    // const roomHeight = div.clientHeight;
     const x = Math.min(Math.max(pos.x, roomWidth - width), 0);
-    const y = Math.min(Math.max(pos.y, roomHeight - height), 0);
+    // const y = Math.min(Math.max(pos.y, roomHeight - height), 0);
+    const y = pos.y; // FIXME: スマホ画面の縦幅が小さいものだと、うまくスクロールできないことがあるため、一時的に制約を設けないこととする
     return { x, y };
   };
   const handleDragBound = (pos: { x: number; y: number }) => {
